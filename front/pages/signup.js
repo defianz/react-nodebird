@@ -4,13 +4,15 @@ import Head from "next/head";
 import { Form, Input, Checkbox, Button } from "antd";
 import styled from "styled-components";
 import useInput from "../hooks/useInput";
-import { SIGN_UP_REQUEST } from "../reducers/user";
+import { SIGN_UP_REQUEST, LOAD_MY_INFO_REQUEST } from "../reducers/user";
 import { useDispatch, useSelector } from "react-redux";
 import Router from "next/router";
 
 import wrapper from "../store/configureStore";
 import { END } from "redux-saga";
 import axios from "axios";
+
+import { LOAD_POSTS_REQUEST } from "../reducers/post";
 
 const ErrorMessasge = styled.div`
   color: red;
