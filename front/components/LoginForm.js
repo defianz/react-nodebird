@@ -4,7 +4,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 
-import useinput from "../hooks/useinput";
+import useInput from "../hooks/useInput";
 import { loginRequestAction } from "../reducers/user";
 
 const ButtonWrapper = styled.div`
@@ -20,8 +20,8 @@ const FormWrapper = styled(Form)`
 const LoginForm = () => {
   const dispatch = useDispatch();
   const { isLoggingIn, isLogInError } = useSelector((state) => state.user);
-  const [email, onChangeEmail] = useinput("");
-  const [password, onChangePassword] = useinput("");
+  const [email, onChangeEmail] = useInput("");
+  const [password, onChangePassword] = useInput("");
 
   useEffect(() => {
     if (isLogInError) {

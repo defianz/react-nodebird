@@ -1,7 +1,7 @@
 import React, { useMemo, useCallback } from "react";
 import { Form, Input } from "antd";
 import { CHANGE_NICKNAME_REQUEST } from "../reducers/user";
-import useInput from "../hooks/useinput";
+import useInput from "../hooks/useInput";
 import { useDispatch, useSelector } from "react-redux";
 
 const NicknameEditForm = () => {
