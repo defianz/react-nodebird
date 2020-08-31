@@ -18,6 +18,7 @@ import { LOAD_POSTS_REQUEST } from "../reducers/post";
 import wrapper from "../store/configureStore";
 import { END } from "redux-saga";
 import axios from "axios";
+import { backUrl } from "../config/config";
 
 const fetcher = (url) =>
   axios.get(url, { withCredentials: true }).then((result) => result.data);
@@ -29,12 +30,12 @@ const Profile = () => {
   const [followingsLimit, setFollowingsLimit] = useState(3);
 
   const { data: followersData, error: followerError } = useSWR(
-    `http://localhost:3065/user/followers?limit=${followersLimit}`,
+    `http://${backUrl}/user/followers?limit=${followersLimit}`,
     fetcher
   );
 
   const { data: followingsData, error: followingError } = useSWR(
-    `http://localhost:3065/user/followings?limit=${followingsLimit}`,
+    `http://${backUrl}/user/followings?limit=${followingsLimit}`,
     fetcher
   );
 
