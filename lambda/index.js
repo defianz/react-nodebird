@@ -3,7 +3,7 @@ const sharp = require('sharp');
 
 const s3 = new AWS.S3();
 
-exports.handler = (event,context,callback) =>{
+exports.handler = async (event,context,callback) =>{
     const Bucket = event.Records[0].s3.bucket.name; // test-defian-s3
     const Key = event.Records[0].s3.object.key;   // original/12312312_abc.png
     console.log(Bucket,Key);
