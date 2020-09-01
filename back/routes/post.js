@@ -22,7 +22,7 @@ AWS.config.update({
 });
 
 const upload = multer({
-  storate: multerS3({
+  storage: multerS3({
     s3: new AWS.S3(),
     bucket: "test-defian-s3",
     key(req, file, cb) {
