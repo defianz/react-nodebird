@@ -5,6 +5,8 @@ const router = express.Router();
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const multerS3 = reuqire("multer-s3");
+const AWS = require("aws-sdk");
 
 try {
   fs.accessSync("uploads");
@@ -13,20 +15,37 @@ try {
   fs.mkdirSync("uploads");
 }
 
-const upload = multer({
-  storage: multer.diskStorage({
-    destination(req, file, done) {
-      done(null, "uploads");
-    },
-    filename(req, file, done) {
-      // 데피안.png
-      const ext = path.extname(file.originalname); // 확장자 추출(.png)
-      const basename = path.basename(file.originalname, ext); //데피안
-      done(null, basename + new Date().getTime() + ext); //데피안15184712891.png
-    },
-    limits: { fileSize: 20 * 1024 * 1024 }, //20 MB
-  }),
+AWS.config.update({
+  accessKeyId: process.env.S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+  region: "ap-northeast2",
 });
+
+const upload = multer({
+  storate: multerS3({
+    s3: new AWS.S3(),
+    bucket: "test-defian-s3",
+    key(req, file, cb) {
+      cb(null, `original/${Date.now()}_${path.basename(file.originalname)}`);
+    },
+  }),
+  limits: { fileSize: 20 * 1024 * 1024 }, //20 MB
+});
+
+// const upload = multer({
+//   storage: multer.diskStorage({
+//     destination(req, file, done) {
+//       done(null, "uploads");
+//     },
+//     filename(req, file, done) {
+//       // 데피안.png
+//       const ext = path.extname(file.originalname); // 확장자 추출(.png)
+//       const basename = path.basename(file.originalname, ext); //데피안
+//       done(null, basename + new Date().getTime() + ext); //데피안15184712891.png
+//     },
+//     limits: { fileSize: 20 * 1024 * 1024 }, //20 MB
+//   }),
+// });
 
 router.post("/", isLoggedIn, upload.none(), async (req, res, next) => {
   // POST /post
@@ -98,7 +117,7 @@ router.post(
   async (req, res, next) => {
     // POST /post/images
     console.log(req.files);
-    res.json(req.files.map((v) => v.filename));
+    res.json(req.files.map((v) => v.location));
   }
 );
 
