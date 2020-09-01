@@ -37,12 +37,7 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:3060",
-      "nodebird.com",
-      "http://3.34.207.138",
-      "http://test-defian.tk",
-    ],
+    origin: ["http://localhost:3060", "http://test-defian.tk"],
     credentials: true, // 쿠키 전달 옵션 : 전달하려면 true (default : false)
   })
 );
@@ -55,6 +50,11 @@ app.use(
     saveUninitialized: false,
     resave: false,
     secret: process.env.COOKIE_SECRET,
+    cookie: {
+      httpOnly: true,
+      secure: false,
+      domain: process.env.NODE_ENV === "production" && ".test-defian.tk",
+    },
   })
 );
 app.use(passport.initialize());
