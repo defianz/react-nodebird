@@ -37,7 +37,12 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(
   cors({
-    origin: ["http://localhost:3060", "nodebird.com", "http://15.164.98.68"],
+    origin: [
+      "http://localhost:3060",
+      "nodebird.com",
+      "http://3.34.207.138",
+      "http://test-defian.tk",
+    ],
     credentials: true, // 쿠키 전달 옵션 : 전달하려면 true (default : false)
   })
 );

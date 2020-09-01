@@ -1,1 +1,1 @@
-export const backUrl = "http://15.165.161.132";
+export const backUrl = "http://api.test-defian.tk";
