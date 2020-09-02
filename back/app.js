@@ -33,7 +33,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(helmet());
   app.use(
     cors({
-      origin: "http://test-defian.tk",
+      origin: "https://test-defian.tk",
       credentials: true, // 쿠키 전달 옵션 : 전달하려면 true (default : false)
     })
   );
