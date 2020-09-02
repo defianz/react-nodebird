@@ -27,6 +27,7 @@ db.sequelize
 
 passportConfig();
 
+app.set("trust proxy", 1);
 if (process.env.NODE_ENV === "production") {
   app.use(morgan("combined"));
   app.use(hpp());
@@ -56,6 +57,7 @@ app.use(
     saveUninitialized: false,
     resave: false,
     secret: process.env.COOKIE_SECRET,
+    proxy: true,
     cookie: {
       httpOnly: true,
       secure: false,
@@ -104,7 +106,7 @@ app.use("/hashtag", hashtagRouter);
 
 // });
 
-app.listen(80, () => {
+app.listen(3065, () => {
   console.log("서버실행중!!");
 });
 // app.listen(3065, () => {
